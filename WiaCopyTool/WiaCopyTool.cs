@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using System.Linq;
 
     public static class WiaCopyTool
     {
@@ -13,7 +14,7 @@
             {
                 foreach (var imgItem in WiaCopy.GetImgItems(iPhone))
                 {
-                    WiaCopy.TransferItem(imgItem, Path.Combine(savePath, iPhone.Properties["Name"].get_Value()));
+                    WiaCopy.TransferJpgItem(imgItem, Path.Combine(savePath, iPhone.Properties["Name"].get_Value().ToString()));
                 }
             }
         }
