@@ -1,22 +1,16 @@
-﻿namespace Monadic
-{
-    using System;
+﻿using System;
+using Monadic.Low;
 
-    class OptionExamples
+namespace Monadic.Use
+{
+    public class OptionExamples
     {
         public IOption<string> Simple(string name)
         {
             switch (name)
             {
                 case null:
-                    try
-                    {
-                        throw new ArgumentNullException(nameof(name));
-                    }
-                    catch (Exception ex)
-                    {
-                        return Option<string>.Failure(ex);
-                    }
+
                 case "foo":
                     return Option.Success("bar");
                 case "bar":
@@ -24,7 +18,6 @@
                 default:
                     return Option<string>.Failure();
             }
-            
         }
 
         public IOption<int> GetById(int id = 0)
@@ -39,9 +32,9 @@
 
         public double Then()
         {
-            return this.Simple(null)
-            .AndThen(() => this.GetById(2))
-            .Map2(this.GetStrict).Or(Math.E);
+            return Simple(null)
+            .AndThen(() => GetById(2))
+            .Map(GetStrict).Or(Math.E);
         }
 
         public static double FinalStep(double d1, double d2, double d3)
@@ -51,23 +44,24 @@
 
         public object Convoluted()
         {
-            return this.Simple("Not")
-                .AndThen(() => this.GetById(2))
-                .Map2(this.GetStrict)
-                .And(this.Then)
-                .And(this.Then)
-                .Map3(FinalStep)
+            return Simple("Not")
+                .AndThen(() => GetById(2))
+                .Map(GetStrict)
+                .And(Then)
+                .And(Then)
+                .Map(FinalStep)
                 .Map(_ => (int)_)
-                .OrElse(this.GetById())
-                .Or(() => this.GetById().Or(42));
+                .OrElse(GetById())
+                .Or(() => GetById().Or(42));
         }
 
         public IOption<string> QuerySyntax()
         {
             return
-                from i in this.GetById() where i == 42
-                from j in this.Simple("")
-                let x = this.GetStrict(j, i)
+                from i in GetById()
+                where i == 42
+                from j in Simple("")
+                let x = GetStrict(j, i)
                 select $"({i},{j}) = {x}";
         }
     }

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Monadic")]
+[assembly: AssemblyTitle("Monadic.Use")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Monadic")]
+[assembly: AssemblyProduct("Monadic.Use")]
 [assembly: AssemblyCopyright("Copyright \u00A9  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e2546ae9-20b3-4ce6-83ca-a8814b18969b")]
+[assembly: Guid("db187097-18de-49a7-962f-b54184fe900e")]
 
 // Version information for an assembly consists of the following four values:
 //

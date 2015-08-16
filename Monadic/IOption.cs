@@ -1,7 +1,9 @@
-﻿namespace Monadic
-{
-    using System;
+﻿using System;
+using System.Diagnostics.Contracts;
 
+namespace Monadic
+{
+    [ContractClass(typeof(OptionContract<>))]
     public interface IOption<out TValue>
     {
         bool HasValue { get; }
@@ -12,7 +14,7 @@
 
         IOption<T> Select<T>(Func<TValue, T> selector);
 
-        IOption<TOut> SelectMany<TOut>(Func<TValue, IOption<TOut>> binder);
+        IOption<TOut> SelectMany<TOut>(Func<TValue, IOption<TOut>> selector);
 
         IOption<TOut> SelectMany<TMid, TOut>(Func<TValue, IOption<TMid>> binder, Func<TValue, TMid, TOut> selector);
     }

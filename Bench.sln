@@ -7,8 +7,6 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "F", "F\F.fsproj", "{CF639BE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiaCopyTool", "WiaCopyTool\WiaCopyTool.csproj", "{A0D941EF-1EF6-47CD-9E4F-EDD3497DC594}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monadic", "Monadic\Monadic.csproj", "{E2546AE9-20B3-4CE6-83CA-A8814B18969B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{A0D941EF-1EF6-47CD-9E4F-EDD3497DC594}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0D941EF-1EF6-47CD-9E4F-EDD3497DC594}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0D941EF-1EF6-47CD-9E4F-EDD3497DC594}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E2546AE9-20B3-4CE6-83CA-A8814B18969B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2546AE9-20B3-4CE6-83CA-A8814B18969B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2546AE9-20B3-4CE6-83CA-A8814B18969B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2546AE9-20B3-4CE6-83CA-A8814B18969B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
