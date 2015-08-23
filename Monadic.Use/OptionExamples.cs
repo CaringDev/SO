@@ -33,7 +33,7 @@ namespace Monadic.Use
         public double Then()
         {
             return Simple(null)
-            .AndThen(() => GetById(2))
+            .And(() => GetById(2))
             .Map(GetStrict).Or(Math.E);
         }
 
@@ -45,13 +45,13 @@ namespace Monadic.Use
         public object Convoluted()
         {
             return Simple("Not")
-                .AndThen(() => GetById(2))
+                .And(() => GetById(2))
                 .Map(GetStrict)
                 .And(Then)
                 .And(Then)
                 .Map(FinalStep)
                 .Map(_ => (int)_)
-                .OrElse(GetById())
+                .Or(GetById())
                 .Or(() => GetById().Or(42));
         }
 

@@ -5,11 +5,6 @@ namespace Monadic
 {
     public static class OptionExtensions
     {
-        private class NullOptionException : Exception
-        {
-            public NullOptionException(string message) : base(message) { }
-        }
-
         public static IOption<TOut> Map<TIn, TOut>(this IOption<TIn> option, Func<TIn, TOut> mapper)
         {
             Contract.Requires(option != null);
@@ -67,7 +62,7 @@ namespace Monadic
             return option.HasValue ? option.Value : t();
         }
 
-        public static IOption<T> OrElse<T>(this IOption<T> option, IOption<T> alternative)
+        public static IOption<T> Or<T>(this IOption<T> option, IOption<T> alternative)
         {
             Contract.Requires(option != null);
             Contract.Requires(alternative != null);
@@ -76,7 +71,7 @@ namespace Monadic
             return option.HasValue ? option : alternative;
         }
 
-        public static IOption<T> OrElse<T>(this IOption<T> option, Func<IOption<T>> alternative)
+        public static IOption<T> Or<T>(this IOption<T> option, Func<IOption<T>> alternative)
         {
             Contract.Requires(option != null);
             Contract.Requires(alternative != null);
@@ -112,33 +107,6 @@ namespace Monadic
 
             probe(option);
             return option;
-        }
-
-        public static IOption<T> Try<T>(this Func<T> attempt)
-        {
-            Contract.Requires(attempt != null);
-
-            T t;
-
-            try
-            {
-                t = attempt();
-
-                if (t == null)
-                {
-                    throw new NullOptionException("Attempt must return non-null.");
-                }
-            }
-            catch (NullOptionException ex)
-            {
-                return Option.Failure<T>(ex);
-            }
-            catch (Exception ex)
-            {
-                return Option.Failure<T>(ex);
-            }
-
-            return Option.Success(t);
         }
     }
 
@@ -201,7 +169,7 @@ namespace Monadic
                 return option.Map(_ => new Tuple<T1, T2, T3, T4, T5, T6, T7>(_.Item1, _.Item2, _.Item3, _.Item4, _.Item5, _.Item6, next()));
             }
 
-            public static IOption<Tuple<T1, T2>> AndThen<T1, T2>(
+            public static IOption<Tuple<T1, T2>> And<T1, T2>(
                 this IOption<T1> option, Func<IOption<T2>> next)
             {
                 Contract.Requires(option != null);
@@ -210,7 +178,7 @@ namespace Monadic
                 return option.Bind(t => next().Map(u => new Tuple<T1, T2>(t, u)));
             }
 
-            public static IOption<Tuple<T1, T2, T3>> AndThen<T1, T2, T3>(
+            public static IOption<Tuple<T1, T2, T3>> And<T1, T2, T3>(
                 this IOption<Tuple<T1, T2>> option, Func<IOption<T3>> next)
             {
                 Contract.Requires(option != null);
@@ -219,7 +187,7 @@ namespace Monadic
                 return option.Bind(t => next().Map(u => new Tuple<T1, T2, T3>(t.Item1, t.Item2, u)));
             }
 
-            public static IOption<Tuple<T1, T2, T3, T4>> AndThen<T1, T2, T3, T4>(
+            public static IOption<Tuple<T1, T2, T3, T4>> And<T1, T2, T3, T4>(
                 this IOption<Tuple<T1, T2, T3>> option, Func<IOption<T4>> next)
             {
                 Contract.Requires(option != null);
@@ -228,7 +196,7 @@ namespace Monadic
                 return option.Bind(t => next().Map(u => new Tuple<T1, T2, T3, T4>(t.Item1, t.Item2, t.Item3, u)));
             }
 
-            public static IOption<Tuple<T1, T2, T3, T4, T5>> AndThen<T1, T2, T3, T4, T5>(
+            public static IOption<Tuple<T1, T2, T3, T4, T5>> And<T1, T2, T3, T4, T5>(
                 this IOption<Tuple<T1, T2, T3, T4>> option, Func<IOption<T5>> next)
             {
                 Contract.Requires(option != null);
@@ -237,7 +205,7 @@ namespace Monadic
                 return option.Bind(t => next().Map(u => new Tuple<T1, T2, T3, T4, T5>(t.Item1, t.Item2, t.Item3, t.Item4, u)));
             }
 
-            public static IOption<Tuple<T1, T2, T3, T4, T5, T6>> AndThen<T1, T2, T3, T4, T5, T6>(
+            public static IOption<Tuple<T1, T2, T3, T4, T5, T6>> And<T1, T2, T3, T4, T5, T6>(
                 this IOption<Tuple<T1, T2, T3, T4, T5>> option, Func<IOption<T6>> next)
             {
                 Contract.Requires(option != null);
@@ -246,7 +214,7 @@ namespace Monadic
                 return option.Bind(t => next().Map(u => new Tuple<T1, T2, T3, T4, T5, T6>(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, u)));
             }
 
-            public static IOption<Tuple<T1, T2, T3, T4, T5, T6, T7>> AndThen<T1, T2, T3, T4, T5, T6, T7>(
+            public static IOption<Tuple<T1, T2, T3, T4, T5, T6, T7>> And<T1, T2, T3, T4, T5, T6, T7>(
                 this IOption<Tuple<T1, T2, T3, T4, T5, T6>> option, Func<IOption<T7>> next)
             {
                 Contract.Requires(option != null);

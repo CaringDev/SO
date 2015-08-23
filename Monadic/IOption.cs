@@ -14,8 +14,6 @@ namespace Monadic
 
         IOption<T> Select<T>(Func<TValue, T> selector);
 
-        IOption<TOut> SelectMany<TOut>(Func<TValue, IOption<TOut>> selector);
-
         IOption<TOut> SelectMany<TMid, TOut>(Func<TValue, IOption<TMid>> binder, Func<TValue, TMid, TOut> selector);
     }
 }

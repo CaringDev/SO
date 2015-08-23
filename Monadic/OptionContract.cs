@@ -1,9 +1,11 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 
 namespace Monadic
 {
     [ContractClassFor(typeof(IOption<>))]
+    [ExcludeFromCodeCoverage]
     internal abstract class OptionContract<TValue> : IOption<TValue>
     {
         [ContractInvariantMethod]
@@ -37,12 +39,6 @@ namespace Monadic
         }
 
         IOption<T> IOption<TValue>.Select<T>(Func<TValue, T> selector)
-        {
-            Contract.Requires(selector != null);
-            throw new NotImplementedException();
-        }
-
-        IOption<TOut> IOption<TValue>.SelectMany<TOut>(Func<TValue, IOption<TOut>> selector)
         {
             Contract.Requires(selector != null);
             throw new NotImplementedException();

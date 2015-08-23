@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Runtime.ExceptionServices;
+using System.Runtime.Serialization;
 
 namespace Monadic
 {
@@ -35,6 +37,7 @@ namespace Monadic
 
         public TValue Value
         {
+            [ExcludeFromCodeCoverage]
             get
             {
                 if (HasValue)
@@ -56,11 +59,6 @@ namespace Monadic
         public IOption<T> Select<T>(Func<TValue, T> selector)
         {
             return this.Map(selector);
-        }
-
-        public IOption<TOut> SelectMany<TOut>(Func<TValue, IOption<TOut>> selector)
-        {
-            return this.Bind(selector);
         }
 
         public IOption<TOut> SelectMany<TMid, TOut>(Func<TValue, IOption<TMid>> binder, Func<TValue, TMid, TOut> selector)
@@ -107,6 +105,41 @@ namespace Monadic
         {
             Contract.Requires(exception != null);
             return Option<T>.Failure(exception);
+        }
+
+        public static IOption<T> Try<T>(this Func<T> attempt)
+        {
+            Contract.Requires(attempt != null);
+
+            T t;
+
+            try
+            {
+                t = attempt();
+
+                if (t == null)
+                {
+                    throw new NullOptionException("Attempt must return non-null.");
+                }
+            }
+            catch (NullOptionException ex)
+            {
+                return Option.Failure<T>(ex);
+            }
+            catch (Exception ex)
+            {
+                return Option.Failure<T>(ex);
+            }
+
+            return Option.Success(t);
+        }
+
+        [Serializable]
+        private sealed class NullOptionException : Exception
+        {
+            public NullOptionException(string message) : base(message) { }
+
+            private NullOptionException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         }
     }
 }
